@@ -29,8 +29,8 @@ traceStart(Process) :- trace(Process, _).
 traceEnd(Process) :- trace(_, Process).
 traceHead(Process) :- trace(Process, _), not traceEnd(Process).
 traceTail(Process) :- not traceStart(Process), trace(_, Process).
-:- not 1 <= #count {Process : traceHead(Process)} <= 1.
-:- not 1 <= #count {Process : traceTail(Process)} <= 1.
+:- not 1 #count {traceHead(Process)} 1.
+:- not 1 #count {traceTail(Process)} 1.
 
 
 % 2. trace is homomorphic to worklfow
@@ -42,8 +42,10 @@ branchEdge(BreakPoint, ProcessA) :- workflow(BreakPoint, ProcessA), workflow(Bre
 executedBranch(ProcessA, ProcessB) :- branchEdge(ProcessA, ProcessB), trace(ProcessInvocA, ProcessInvocB), mapping(ProcessInvocA, ProcessA), mapping(ProcessInvocB, ProcessB).
 
 % 3. each break point has exact one executed edge (since BreakPoint is deduplicated)
-numExecuted(Num) :- Num = #count {Process : executedBranch(Process, _)}.
-numBranches(Num) :- Num = #count {Process : branchEdge(Process, _)}.
+executedBranchStart(Process) :- executedBranch(Process, _).
+branchEdgeStart(Process) :- branchEdge(Process, _).
+numExecuted(Num) :- Num = #count {executedBranchStart(Process)}.
+numBranches(Num) :- Num = #count {branchEdgeStart(Process)}.
 :- numExecuted(NumE), numBranches(NumB), NumE != NumB.
 
 
