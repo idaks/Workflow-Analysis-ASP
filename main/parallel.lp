@@ -6,4 +6,4 @@ workflowHead(X) :- workflowTc(X, _), not workflowTc(_, X).
 workflowTail(X) :- workflowTc(_, X), not workflowTc(X, _).
 prallel(ActorA, ActorB) :- workflowTc(ActorA, ActorB), not actorDependency(ActorA, ActorB), not workflowHead(ActorA), not workflowTail(ActorB).
 
-#show prallel/2.
+%#show prallel/2. 

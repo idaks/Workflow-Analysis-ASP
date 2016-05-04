@@ -61,7 +61,8 @@ branchPair(BreakPoint, Ancestor) :- commonAncestors(BreakPoint, Ancestor), not n
 traceTc(ProcessA, ProcessB) :- trace(ProcessA, ProcessB).
 traceTc(ProcessA, ProcessB) :- traceTc(ProcessA, ProcessI), trace(ProcessI, ProcessB).
 
-:- executedBranch(ProcessA, ProcessI), branchPair(ProcessA, ProcessB), traceTc(ProcessI, ProcessB).
+executedBranchValid :- executedBranch(ProcessA, ProcessI), branchPair(ProcessA, ProcessB), traceTc(ProcessInvocI, ProcessInvocB), traceTc(ProcessInvocA, ProcessInvocI), mapping(ProcessInvocA, ProcessA), mapping(ProcessInvocI, ProcessI), mapping(ProcessInvocB, ProcessB).
+:- not executedBranchValid.
 
 
 % find all the edges that are not suppose to be in the trace

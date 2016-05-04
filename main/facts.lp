@@ -14,9 +14,9 @@ actorReference("sciName", "FlowerTimeValidator", "repCon").
 inputData("eventDate").
 inputData("sciName").
 inputData("repCon").
-inputData("latitude").
-inputData("longitude").
-inputData("identifier").
+%inputData("latitude").
+%inputData("longitude").
+%inputData("identifier").
 
 % process
 process("Reader", "actor").
