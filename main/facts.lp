@@ -27,12 +27,16 @@ process("Writer", "actor").
 process("frontSplit", "spliter").
 process("frontMerger", "merger").
 
+sourceProcess("Reader").
+sinkProcess("Writer").
+
 % process label
 processLabel("actor", "next").
 processLabel("spliter", "split").
 processLabel("merger", "merge").
 
 
+% test cases
 % branch
 %workflow("Reader", "frontSplit").
 %workflow("frontSplit", "FlowerTimeValidator").
